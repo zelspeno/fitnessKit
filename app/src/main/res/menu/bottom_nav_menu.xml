@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/classes"
+        android:title="@string/classes" />
+
+    <item
+        android:id="@+id/navigation_dashboard"
+        android:icon="@drawable/requests"
+        android:title="@string/requests" />
+
+    <item
+        android:id="@+id/navigation_notifications"
+        android:icon="@drawable/add"
+        android:title="@string/add" />
+
+    <item
+        android:id="@+id/navigation_chat"
+        android:icon="@drawable/chat"
+        android:title="@string/chat" />
+
+    <item
+        android:id="@+id/navigation_more"
+        android:icon="@drawable/more"
+        android:title="@string/more" />
+
+</menu>
