@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.zelspeno.fitnesskit_testapp.R
 
@@ -13,6 +14,8 @@ class CustomScheduleRecyclerAdapter(private var workDays: List<WorkDay>?):
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val headerDate: TextView = itemView.findViewById(R.id.homeScheduleDateTV)
+        val childRecyclerAdapter: RecyclerView = itemView.findViewById(R.id.homeScheduleInsideRecyclerView)
+        val context = itemView.context!!
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -26,6 +29,12 @@ class CustomScheduleRecyclerAdapter(private var workDays: List<WorkDay>?):
 
         holder.headerDate.text =
             "${workDays!![position].dayOfWeek}, ${workDays!![position].dateTimeString}"
+
+        val childAdapter = CustomScheduleChildRecyclerAdapter(workDays!![position].lessonsList)
+        holder.childRecyclerAdapter.layoutManager = LinearLayoutManager(
+            holder.context, LinearLayoutManager.VERTICAL, false
+        )
+        holder.childRecyclerAdapter.adapter = childAdapter
 
     }
 

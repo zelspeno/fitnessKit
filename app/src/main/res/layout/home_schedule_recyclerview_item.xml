@@ -14,6 +14,7 @@
         android:textColor="@color/dateTextColor"
         android:fontFamily="@string/mainFontName"
         android:text="@string/dateExample"
+        android:layout_marginTop="8dp"
         android:layout_marginStart="16dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -22,12 +23,14 @@
         android:id="@+id/homeScheduleInsideRecyclerView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@id/homeScheduleDateTV"
         app:layout_constraintTop_toBottomOf="@id/homeScheduleDateTV"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:listitem="@layout/home_schedule_inside_recyclerview_item"/>
+        app:layout_constraintVertical_bias="0.0"
+        tools:listitem="@layout/home_schedule_inside_recyclerview_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,5 @@
 package com.zelspeno.fitnesskit_testapp.ui.home
 
-import android.graphics.Color
-
 data class Lesson(
     val id: Long,
     val dateTime: String,

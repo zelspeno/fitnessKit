@@ -62,66 +62,74 @@ class ScheduleImplementRepository : ScheduleRepository {
     }
 
     private fun getListOfWorkDays(jsonObj: JSONObject): MutableList<WorkDay> {
-        val lessonsList = mutableListOf<Lesson>()
+
         val lessonsNode = jsonObj.getJSONArray("lessons")
+        val trainersNode = jsonObj.getJSONArray("trainers")
         val data = mutableListOf<WorkDay>()
+        var workDayUnique = mutableMapOf<String, MutableList<Lesson>>()
+        val trainersMap = getMapTrainers(trainersNode)
 
         for (i in 0 until lessonsNode.length()) {
-            val startLesson = lessonsNode.getJSONObject(i).getString("startTime")
-            val endLesson = lessonsNode.getJSONObject(i).getString("endTime")
+
+
             val dateTime = lessonsNode.getJSONObject(i).getString("date")
 
-            if (i != 0) {
-                val prevDateTime = lessonsNode
-                    .getJSONObject(i - 1)
-                    .getString("date")
-                if (prevDateTime != dateTime) {
-                    data.add(WorkDay(
-                        dayOfWeek = getDayOfWeekByDate(prevDateTime),
-                        dateTimeString = getUIDateFromDate(prevDateTime),
-                        lessonsList = lessonsList
-                    ))
-                    lessonsList.clear()
-                    lessonsList.add(addLessonToList(i, dateTime, startLesson, endLesson, lessonsNode))
-                } else {
-                    lessonsList.add(addLessonToList(i, dateTime, startLesson, endLesson, lessonsNode))
-                }
+            if (workDayUnique.containsKey(dateTime)) {
+                workDayUnique[dateTime]!!.add(
+                    addLessonToList(i, dateTime, lessonsNode, trainersMap)
+                )
+            } else {
+                workDayUnique[dateTime] = mutableListOf(
+                    addLessonToList(i, dateTime, lessonsNode, trainersMap)
+                )
             }
-            if (i != lessonsNode.length()-1) {
-                lessonsList.add(addLessonToList(i, dateTime, startLesson, endLesson, lessonsNode))
-                data.add(
-                    WorkDay(
-                        dayOfWeek = getDayOfWeekByDate(dateTime),
-                        dateTimeString = getUIDateFromDate(dateTime),
-                        lessonsList = lessonsList
-                    ))
-            }
-            else {
-                lessonsList.add(addLessonToList(i, dateTime, startLesson, endLesson, lessonsNode))
-            }
+
+        }
+        workDayUnique = workDayUnique.toSortedMap()
+
+        for (i in workDayUnique) {
+            val date = i.key
+            val listLesson = i.value.sortedBy { it.startLesson }.toMutableList()
+            data.add(
+                WorkDay(
+                    dayOfWeek = getDayOfWeekByDate(date),
+                    dateTimeString = getUIDateFromDate(date),
+                    lessonsList = listLesson
+                )
+            )
         }
         return data
     }
 
-    private fun addLessonToList(i: Int,
-                                dateTime: String,
-                                startLesson: String,
-                                endLesson: String,
-                                lessonsNode: JSONArray
-    ): Lesson =
-        Lesson(
+    private fun addLessonToList(
+        i: Int,
+        dateTime: String,
+        lessonsNode: JSONArray,
+        mapTrainers: Map<String, String>
+    ): Lesson {
+
+        val startLesson = lessonsNode.getJSONObject(i).getString("startTime")
+        val endLesson = lessonsNode.getJSONObject(i).getString("endTime")
+        val trainerID = lessonsNode.getJSONObject(i).getString("coach_id")
+        var trainerName = ""
+        if (trainerID.isNotEmpty()) {
+            trainerName = mapTrainers[trainerID]!!
+        }
+
+        return Lesson(
             id = i.toLong(),
             dateTime = dateTime,
             startLesson = startLesson,
             endLesson = endLesson,
             deltaLesson = getDeltaLesson(startLesson, endLesson),
             lessonName = lessonsNode.getJSONObject(i).getString("name"),
-            trainerName = lessonsNode.getJSONObject(i).getString("coach_id"),
+            trainerName = trainerName,
             locationName = lessonsNode.getJSONObject(i).getString("place"),
             lineColor = Color.parseColor(
                 lessonsNode.getJSONObject(i).getString("color")
             ),
         )
+    }
 
     private fun getDayOfWeekByDate(date: String): String {
         val (year, month, day) = date.split("-").map { it.toInt() }
@@ -155,7 +163,7 @@ class ScheduleImplementRepository : ScheduleRepository {
         var result = ""
         when (this.lowercase()) {
             "january" -> result = "Январь"
-            "february" -> result =  "Февраль"
+            "february" -> result = "Февраль"
             "march" -> result = "Март"
             "april" -> result = "Апрель"
             "may" -> result = "Май"
@@ -174,9 +182,24 @@ class ScheduleImplementRepository : ScheduleRepository {
         val (startHour, startMinute) = startLesson.split(":").map { it.toInt() }
         val (endHour, endMinute) = endLesson.split(":").map { it.toInt() }
         val totalMinutes = ((endHour * 60) + endMinute) - ((startHour * 60) + startMinute)
-        val totalHours = totalMinutes/60
+        val totalHours = totalMinutes / 60
         return "$totalHours ч. ${totalMinutes - (totalHours * 60)}мин."
     }
 
+    private fun getMapTrainers(trainersNode: JSONArray): MutableMap<String, String> {
+        val mapTrainers = mutableMapOf<String, String>()
 
+        for (i in 0 until trainersNode.length()) {
+
+            val id = trainersNode.getJSONObject(i).getString("id")
+            val fullName = trainersNode.getJSONObject(i).getString("full_name")
+
+            mapTrainers[id] = fullName
+
+        }
+
+        return mapTrainers
+
+
+    }
 }
