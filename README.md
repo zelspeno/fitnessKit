@@ -1,6 +1,6 @@
 # Тестовое задание для FitnessKit
 
-![image](https://github.com/zelspeno/fitnessKit_testApp/assets/75141607/612b9424-1b89-4386-8c16-6b1b7f4c3fb4)
+![fitnessKit](https://github.com/zelspeno/fitnessKit/assets/75141607/fda51a37-b0bb-4ace-a5bd-749dfc73c409)
 
 # Download
 
