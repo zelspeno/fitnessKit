@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:backgroundTint="@color/barsBackgroundColor"
+    android:orientation="vertical"
+    card_view:cardCornerRadius="15dp"
+    card_view:cardPreventCornerOverlap="false"
+    card_view:cardUseCompatPadding="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/homeScheduleContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <View
+            android:id="@+id/homeScheduleStartColoredLine"
+            android:layout_width="10dp"
+            android:layout_height="0dp"
+            android:background="@color/shimmerBackgroundColor"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:id="@+id/homeScheduleStartClassDateTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/shimmerBackgroundColor"
+            android:background="@color/shimmerBackgroundColor"
+            android:text="@string/dateTimeExample"
+            android:fontFamily="@string/mainFontName"
+            android:layout_margin="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/homeScheduleStartColoredLine" />
+
+        <TextView
+            android:id="@+id/homeScheduleEndClassDateTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/shimmerBackgroundColor"
+            android:background="@color/shimmerBackgroundColor"
+            android:text="@string/dateTimeExample"
+            android:fontFamily="@string/mainFontName"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintTop_toBottomOf="@id/homeScheduleStartClassDateTV"
+            app:layout_constraintStart_toStartOf="@id/homeScheduleStartClassDateTV"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:id="@+id/homeScheduleClassNameTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/shimmerBackgroundColor"
+            android:textColor="@color/shimmerBackgroundColor"
+            android:text="@string/classesNameExample"
+            android:fontFamily="@string/mainFontNameBold"
+            android:autoSizeTextType="uniform"
+            android:textAlignment="textStart"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintEnd_toStartOf="@id/homeScheduleTotalTimeTV"
+            app:layout_constraintTop_toTopOf="@id/homeScheduleStartClassDateTV"
+            app:layout_constraintStart_toEndOf="@id/homeScheduleStartClassDateTV"
+            app:layout_constraintBottom_toBottomOf="@id/homeScheduleStartClassDateTV"/>
+
+        <TextView
+            android:id="@+id/homeScheduleTotalTimeTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/shimmerBackgroundColor"
+            android:text="@string/totalDateTimeExample"
+            android:fontFamily="@string/mainFontName"
+            android:background="@color/shimmerBackgroundColor"
+            app:layout_constraintTop_toTopOf="@id/homeScheduleClassNameTV"
+            app:layout_constraintEnd_toEndOf="@id/homeScheduleLocationTV"
+            app:layout_constraintBottom_toBottomOf="@id/homeScheduleClassNameTV"/>
+
+        <ImageView
+            android:id="@+id/homeScheduleTrainerNameImage"
+            android:layout_width="16dp"
+            android:layout_height="0dp"
+            android:scaleType="fitCenter"
+            android:background="@color/shimmerBackgroundColor"
+            app:layout_constraintTop_toTopOf="@id/homeScheduleEndClassDateTV"
+            app:layout_constraintStart_toStartOf="@id/homeScheduleClassNameTV"
+            app:layout_constraintBottom_toBottomOf="@id/homeScheduleEndClassDateTV"/>
+
+        <TextView
+            android:id="@+id/homeScheduleTrainerNameTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/shimmerBackgroundColor"
+            android:text="@string/trainerNameExample"
+            android:background="@color/shimmerBackgroundColor"
+            android:autoSizeTextType="uniform"
+            android:fontFamily="@string/mainFontName"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:textAlignment="textStart"
+            app:layout_constraintTop_toTopOf="@id/homeScheduleEndClassDateTV"
+            app:layout_constraintEnd_toStartOf="@id/homeScheduleVerticalLine"
+            app:layout_constraintStart_toEndOf="@id/homeScheduleTrainerNameImage"
+            app:layout_constraintBottom_toBottomOf="@id/homeScheduleEndClassDateTV"/>
+
+        <View
+            android:id="@+id/homeScheduleVerticalLine"
+            android:layout_height="0dp"
+            android:layout_width="2dp"
+            android:visibility="invisible"
+            app:layout_constraintTop_toTopOf="@id/homeScheduleEndClassDateTV"
+            app:layout_constraintBottom_toBottomOf="@id/homeScheduleEndClassDateTV"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/homeScheduleLocationTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/shimmerBackgroundColor"
+            android:background="@color/shimmerBackgroundColor"
+            android:autoSizeTextType="uniform"
+            android:textAlignment="textStart"
+            android:text="@string/locationExample"
+            android:fontFamily="@string/mainFontName"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintTop_toTopOf="@id/homeScheduleEndClassDateTV"
+            app:layout_constraintStart_toEndOf="@id/homeScheduleLocationImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/homeScheduleEndClassDateTV" />
+
+        <ImageView
+            android:id="@+id/homeScheduleLocationImage"
+            android:layout_width="16dp"
+            android:layout_height="0dp"
+            android:scaleType="fitCenter"
+            android:background="@color/shimmerBackgroundColor"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintStart_toEndOf="@id/homeScheduleVerticalLine"
+            app:layout_constraintTop_toTopOf="@id/homeScheduleEndClassDateTV"
+            app:layout_constraintBottom_toBottomOf="@id/homeScheduleEndClassDateTV"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

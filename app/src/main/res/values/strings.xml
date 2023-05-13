@@ -18,4 +18,5 @@
     <string name="trainerNameExample">Иванов Иван</string>
     <string name="locationExample">Тренажерный зал</string>
     <string name="totalDateTimeExample">0ч. 15мин.</string>
+    <string name="noInternetText">Отсутствует интернет-подключение</string>
 </resources>
